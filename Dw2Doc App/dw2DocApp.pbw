@@ -1,0 +1,8 @@
+Save Format v3.0(19990112)
+@begin Targets
+ 0 "Dw2Doc App\\dw2excelapp.pbt";
+ 1 "Dw2Doc App\\dw2wordapp.pbt";
+ 2 "Dw2Doc App\\dw2excelapp_testcases.pbt";
+@end;
+DefaultTarget "Dw2Doc App\\dw2excelapp.pbt";
+DefaultRemoteTarget "Dw2Doc App\\dw2excelapp.pbt";
