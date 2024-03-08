@@ -3,5 +3,5 @@ Save Format v3.0(19990112)
 @end;
 appname "dw2excelapp";
 applib "dw2excelapp.pbl";
-LibList "dw2excelapp.pbl;common.pbl;dw2doc.pbl;dws.pbl;csharpextensions.pbl";
+LibList "dw2excelapp.pbl;dw2doc.pbl;dws.pbl";
 type "pb";

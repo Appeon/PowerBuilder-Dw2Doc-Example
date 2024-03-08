@@ -26,7 +26,7 @@ public abstract class AbstractAttributeTester<TAttr>
     {
         List<AttributeTestResult> results = new()
         {
-            //new AttributeTestResult("floating", bool.FalseString, bool.FalseString),
+            //new AttributeTestResult(cell.Cell.Object.Name,"floating", bool.FalseString, bool.FalseString),
         };
 
         return results;
@@ -36,7 +36,7 @@ public abstract class AbstractAttributeTester<TAttr>
     {
         List<AttributeTestResult> results = new()
         {
-            //new AttributeTestResult("floating", bool.TrueString, attr.Floating.ToString().ToLower())
+            //new AttributeTestResult(cell.Cell.Object.Name,"floating", bool.TrueString, attr.Floating.ToString().ToLower())
         };
 
         return results;

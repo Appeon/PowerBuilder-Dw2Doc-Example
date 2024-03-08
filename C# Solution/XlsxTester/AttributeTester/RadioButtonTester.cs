@@ -15,13 +15,13 @@ public class RadioButtonTester : AbstractAttributeTester<DwRadioButtonAttributes
 
         var testResults = TestCellBase(attr, cell);
 
-        testResults.Add(new AttributeTestResult("output cell",
+        testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "output cell",
             NonNullString,
             cell.OutputCell is null ? NullString : NonNullString));
 
         while (cell.OutputCell is not null)
         {
-            testResults.Add(new AttributeTestResult("has codetable",
+            testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "has codetable",
                 bool.TrueString,
                 (attr.CodeTable is var codeTable && codeTable is not null).ToString()));
 
@@ -31,13 +31,13 @@ public class RadioButtonTester : AbstractAttributeTester<DwRadioButtonAttributes
             }
 
             if (attr.Text is not null)
-                testResults.Add(new AttributeTestResult("text",
+                testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "text",
                     bool.TrueString,
                     (cell.OutputCell.StringCellValue == CodeTableTools.BuildString(codeTable, attr.Text, attr.LeftText, attr.Columns)).ToString()));
 
             XSSFCellStyle? style = cell.OutputCell.CellStyle as XSSFCellStyle;
 
-            testResults.Add(new AttributeTestResult("cell style",
+            testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "cell style",
                 NonNullString,
                 style is null ? NullString : NonNullString));
 
@@ -45,47 +45,47 @@ public class RadioButtonTester : AbstractAttributeTester<DwRadioButtonAttributes
                 break;
 
             var font = style.GetFont();
-            testResults.Add(new AttributeTestResult("font family",
+            testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "font family",
                 attr.FontFace,
                 font.FontName));
 
-            testResults.Add(new AttributeTestResult("font size",
+            testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "font size",
                 attr.FontSize.ToString(),
-                (font.FontHeightInPoints - 1).ToString()));
+                (font.FontHeightInPoints + 1).ToString()));
 
-            testResults.Add(new AttributeTestResult("font color",
+            testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "font color",
                 attr.FontColor.Value.ToRgb().ToString(),
                 font.Color.ToString()));
 
-            testResults.Add(new AttributeTestResult("is bold",
+            testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "is bold",
                 attr.FontWeight.ToString(),
                 font.IsBold ? "700" : "400"));
 
-            testResults.Add(new AttributeTestResult("is italic",
+            testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "is italic",
                 attr.Italics.ToString(),
                 font.IsItalic.ToString()));
 
-            testResults.Add(new AttributeTestResult("is strikethrough",
+            testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "is strikethrough",
                 attr.Strikethrough.ToString(),
                 font.IsStrikeout.ToString()));
 
-            testResults.Add(new AttributeTestResult("is underline",
+            testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "is underline",
                 attr.Underline.ToString(),
                 font.Underline.ToString()));
 
-            testResults.Add(new AttributeTestResult("background color",
+            testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "background color",
                 attr.BackgroundColor.Value.ToRgb().ToString(),
                 style.FillForegroundColor.ToString()));
 
-            testResults.Add(new AttributeTestResult("background transparent",
+            testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "background transparent",
                 (attr.BackgroundColor.Value.A == 0).ToString(),
                 (style.FillPattern == NPOI.SS.UserModel.FillPattern.NoFill).ToString()));
 
-            testResults.Add(new AttributeTestResult("horizontal alignment",
+            testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "horizontal alignment",
                 attr.Alignment.ToNpoiHorizontalAlignment().ToString(),
                 style.Alignment.ToString()));
 
-            testResults.Add(new AttributeTestResult("left text",
+            testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "left text",
                 attr.LeftText.ToString(),
                 (cell.OutputCell.StringCellValue[0] switch
                 {
@@ -104,11 +104,15 @@ public class RadioButtonTester : AbstractAttributeTester<DwRadioButtonAttributes
     {
         var testResults = TestFloatingBase(attr, cell);
 
-        testResults.Add(new("output shape", NonNullString, cell.OutputShape is null ? NullString : NonNullString));
+        testResults.Add(new(
+            cell.Cell.Object.Name,
+            "output shape",
+            NonNullString,
+            cell.OutputShape is null ? NullString : NonNullString));
 
         while (cell.OutputShape is not null)
         {
-            testResults.Add(new AttributeTestResult("has codetable",
+            testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "has codetable",
                 bool.TrueString,
                 (attr.CodeTable is var codeTable && codeTable is not null).ToString()));
 
@@ -117,7 +121,11 @@ public class RadioButtonTester : AbstractAttributeTester<DwRadioButtonAttributes
                 break;
             }
 
-            testResults.Add(new("shape type", nameof(XSSFTextBox), cell.OutputShape.GetType().Name));
+            testResults.Add(new(
+                cell.Cell.Object.Name,
+                "shape type",
+                nameof(XSSFTextBox),
+                cell.OutputShape.GetType().Name));
             if (cell.OutputShape is not XSSFTextBox textBox)
             {
                 break;
@@ -125,12 +133,16 @@ public class RadioButtonTester : AbstractAttributeTester<DwRadioButtonAttributes
 
             if (attr.BackgroundColor.Value.A != 0)
             {
-                testResults.Add(new("background color",
+                testResults.Add(new(
+                    cell.Cell.Object.Name,
+                    "background color",
                     attr.BackgroundColor.Value.ToArgb().ToString(),
                     textBox.FillColor.ToString()));
             }
 
-            testResults.Add(new("paragraphs",
+            testResults.Add(new(
+                cell.Cell.Object.Name,
+                "paragraphs",
                  "1",
                  textBox.TextParagraphs.Count.ToString()));
 
@@ -139,7 +151,9 @@ public class RadioButtonTester : AbstractAttributeTester<DwRadioButtonAttributes
 
             var paragraph = textBox.TextParagraphs[0];
 
-            testResults.Add(new("text run",
+            testResults.Add(new(
+                cell.Cell.Object.Name,
+                "text run",
                 "1",
                 paragraph.TextRuns.Count.ToString()));
 
@@ -148,44 +162,48 @@ public class RadioButtonTester : AbstractAttributeTester<DwRadioButtonAttributes
 
             var run = paragraph.TextRuns[0];
 
-            testResults.Add(new("text run text",
+            testResults.Add(new(
+                cell.Cell.Object.Name,
+                "text run text",
                 CodeTableTools.BuildString(codeTable, attr.Text, attr.LeftText, attr.Columns),
                 run.Text));
 
-            testResults.Add(new("font color",
+            testResults.Add(new(
+                cell.Cell.Object.Name,
+                "font color",
                 attr.FontColor.Value.ToRgb().ToString(),
                 (run.FontColor.R << 16 + run.FontColor.G << 8 + run.FontColor.B).ToString()));
 
 
-            testResults.Add(new AttributeTestResult("left text",
+            testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "left text",
                 attr.LeftText.ToString(),
                 (run.Text[0] switch
                 {
-                    '◉' or '⊙' => true,
-                    _ => false
+                    '◉' or '⊙' => false,
+                    _ => true
                 }).ToString()));
 
-            testResults.Add(new AttributeTestResult("font size",
+            testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "font size",
                 attr.FontSize.ToString(),
-                (run.FontSize - 1).ToString()));
+                (run.FontSize + 1).ToString()));
 
-            testResults.Add(new AttributeTestResult("is bold",
+            testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "is bold",
                 attr.FontWeight.ToString(),
                 run.IsBold ? "700" : "400"));
 
-            testResults.Add(new AttributeTestResult("is italic",
+            testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "is italic",
                 attr.Italics.ToString(),
                 run.IsItalic.ToString()));
 
-            testResults.Add(new AttributeTestResult("is strikethrough",
+            testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "is strikethrough",
                 attr.Strikethrough.ToString(),
                 run.IsStrikethrough.ToString()));
 
-            testResults.Add(new AttributeTestResult("is underline",
+            testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "is underline",
                 attr.Underline.ToString(),
                 run.IsUnderline.ToString()));
 
-            testResults.Add(new AttributeTestResult("alignment",
+            testResults.Add(new AttributeTestResult(cell.Cell.Object.Name, "alignment",
                 attr.Alignment.ToNpoiTextAlignment().ToString(),
                 paragraph.TextAlign.ToString()));
 

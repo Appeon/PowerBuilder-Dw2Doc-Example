@@ -20,6 +20,7 @@ public class ShapeTester : AbstractAttributeTester<DwShapeAttributes>
         var testResults = TestFloatingBase(attr, cell);
 
         testResults.Add(new(
+            cell.Cell.Object.Name,
             "output shape",
             NonNullString,
             cell.OutputShape is null ? NullString : NonNullString
@@ -28,6 +29,7 @@ public class ShapeTester : AbstractAttributeTester<DwShapeAttributes>
         while (cell.OutputShape is not null)
         {
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "shape type",
                 nameof(XSSFSimpleShape),
                 cell.OutputShape.GetType().Name
@@ -39,30 +41,35 @@ public class ShapeTester : AbstractAttributeTester<DwShapeAttributes>
             }
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "fill color",
                 attr.FillColor.Value.ToRgb().ToString(),
                 shape.FillColor.ToString()
             ));
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "fill transparent",
                 (attr.FillStyle == Common.Enums.FillStyle.Transparent).ToString(),
                 shape.IsNoFill.ToString()
             ));
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "line style",
                 attr.OutlineStyle.DwLineStyleToNpoiLineStyle().ToString(),
                 shape.LineStyle.ToString()
             ));
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "line color",
                 attr.OutlineColor.Value.ToRgb().ToString(),
                 shape.LineStyleColor.ToString()
             ));
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "line width",
                 attr.OutlineWidth.ToString(),
                 shape.LineWidth.ToString()
@@ -70,6 +77,7 @@ public class ShapeTester : AbstractAttributeTester<DwShapeAttributes>
 
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "shape type",
                 ((int)(attr.Shape switch
                 {

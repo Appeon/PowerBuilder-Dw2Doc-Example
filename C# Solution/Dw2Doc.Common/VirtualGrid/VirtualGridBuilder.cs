@@ -391,16 +391,20 @@ namespace Appeon.DotnetDemo.Dw2Doc.Common.VirtualGrid
                 var firstNonFloatingCell = controlSet.Where(c => !c.Object.Floating)
                     .FirstOrDefault();
 
-                if (firstNonFloatingCell is not null && y > YThreshold)
-                {
-                    previousRow = new RowDefinition()
-                    {
-                        Size = y,
-                        BandName = firstNonFloatingCell.Object.Band,
-                        IsPadding = true,
-                    };
 
-                    rowsInCurrentBand.Add(previousRow);
+                if (firstNonFloatingCell is not null)
+                {
+                    if (y > YThreshold)
+                    {
+                        previousRow = new RowDefinition()
+                        {
+                            Size = y,
+                            BandName = firstNonFloatingCell.Object.Band,
+                            IsPadding = true,
+                        };
+
+                        rowsInCurrentBand.Add(previousRow);
+                    }
 
                     break;
                 }

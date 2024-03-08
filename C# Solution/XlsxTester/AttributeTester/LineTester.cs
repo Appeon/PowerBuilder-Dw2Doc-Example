@@ -18,16 +18,28 @@ public class LineTester : AbstractAttributeTester<DwLineAttributes>
     {
         var testResults = TestFloatingBase(attr, cell);
 
-        testResults.Add(new("output shape", NonNullString, cell.OutputShape is null ? NullString : NonNullString));
+        testResults.Add(new(
+            cell.Cell.Object.Name,
+            "output shape",
+            NonNullString,
+            cell.OutputShape is null ? NullString : NonNullString));
 
         while (cell.OutputShape is not null)
         {
-            testResults.Add(new("shape type", nameof(XSSFShape), cell.OutputShape.GetType().Name));
-            testResults.Add(new("line style",
+            testResults.Add(new(
+                cell.Cell.Object.Name,
+                "shape type",
+                nameof(XSSFShape),
+                cell.OutputShape.GetType().Name));
+            testResults.Add(new(
+                cell.Cell.Object.Name,
+                "line style",
                 attr.LineStyle.DwLineStyleToNpoiLineStyle().ToString(),
                 cell.OutputShape.LineStyle.ToString()));
 
-            testResults.Add(new("line width",
+            testResults.Add(new(
+                cell.Cell.Object.Name,
+                "line width",
                 attr.LineWidth.ToString(),
                 cell.OutputShape.LineWidth.ToString()));
 

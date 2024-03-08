@@ -14,6 +14,7 @@ public class TextTester : AbstractAttributeTester<DwTextAttributes>
         var testResults = TestCellBase(attr, cell);
 
         testResults.Add(new(
+            cell.Cell.Object.Name,
                 "output cell",
                 NonNullString,
                 cell.OutputCell is null ? NullString : NonNullString
@@ -23,6 +24,7 @@ public class TextTester : AbstractAttributeTester<DwTextAttributes>
         {
             var cellStyle = cell.OutputCell.CellStyle as XSSFCellStyle;
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "has style",
                 bool.TrueString,
                 (cellStyle is not null).ToString()
@@ -35,6 +37,7 @@ public class TextTester : AbstractAttributeTester<DwTextAttributes>
 
             var font = cellStyle.GetFont();
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "has font",
                 bool.TrueString,
                 (font is not null).ToString()
@@ -44,36 +47,42 @@ public class TextTester : AbstractAttributeTester<DwTextAttributes>
                 break;
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "font height",
                 (attr.FontSize - 1).ToString(),
                 font.FontHeightInPoints.ToString()
             ));
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "font name",
                 attr.FontFace,
                 font.FontName
             ));
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "font color",
                 attr.FontColor.Value.ToRgb().ToString(),
                 font.Color.ToString()
             ));
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "is bold",
                 (attr.FontWeight >= 700).ToString(),
                 font.IsBold.ToString()
             ));
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "is italic",
                 attr.Italics.ToString(),
                 font.IsItalic.ToString()
             ));
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "is strikethrough",
                 attr.Strikethrough.ToString(),
                 font.IsStrikeout.ToString()
@@ -82,6 +91,7 @@ public class TextTester : AbstractAttributeTester<DwTextAttributes>
             bool transparentBg = (attr.BackgroundColor.Value.A == 0);
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "background transparent",
                 transparentBg.ToString(),
                 (cellStyle.FillPattern == NPOI.SS.UserModel.FillPattern.NoFill).ToString()
@@ -89,18 +99,21 @@ public class TextTester : AbstractAttributeTester<DwTextAttributes>
 
             if (!transparentBg)
                 testResults.Add(new(
+                    cell.Cell.Object.Name,
                     "background color",
                     attr.BackgroundColor.Value.ToRgb().ToString(),
                     cellStyle.FillForegroundColor.ToString()
                 ));
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "alignment",
                 attr.Alignment.ToNpoiHorizontalAlignment().ToString().ToLower(),
                 cellStyle.Alignment.ToString().ToLower()
             ));
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "text",
                 attr.Text,
                 cell.OutputCell.StringCellValue
@@ -117,6 +130,7 @@ public class TextTester : AbstractAttributeTester<DwTextAttributes>
         var testResults = TestFloatingBase(attr, cell);
 
         testResults.Add(new(
+            cell.Cell.Object.Name,
                 "output shape",
                 NonNullString,
                 cell.OutputShape is null ? NullString : NonNullString
@@ -125,6 +139,7 @@ public class TextTester : AbstractAttributeTester<DwTextAttributes>
         while (cell.OutputShape is not null)
         {
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "shape type",
                 nameof(XSSFTextBox),
                 cell.OutputShape.GetType().Name
@@ -140,6 +155,7 @@ public class TextTester : AbstractAttributeTester<DwTextAttributes>
             //));
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "paragraphs",
                 "1",
                 textBox.TextParagraphs.Count.ToString()
@@ -151,6 +167,7 @@ public class TextTester : AbstractAttributeTester<DwTextAttributes>
             var paragraph = textBox.TextParagraphs[0];
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "text run",
                 "1",
                 paragraph.TextRuns.Count.ToString()
@@ -162,54 +179,63 @@ public class TextTester : AbstractAttributeTester<DwTextAttributes>
             var run = paragraph.TextRuns[0];
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "font color",
                 attr.FontColor.Value.ToRgb().ToString(),
                 (run.FontColor.R << 16 + run.FontColor.G << 8 + run.FontColor.B).ToString()
             ));
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "text",
                 attr.Text,
                 run.Text
             ));
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "font size",
                 (attr.FontSize - 1).ToString(),
                 run.FontSize.ToString()
             ));
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "is italic",
                 attr.Italics.ToString(),
                 run.IsItalic.ToString()
             ));
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "is strikethrough",
                 attr.Strikethrough.ToString(),
                 run.IsStrikethrough.ToString()
             ));
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "is underline",
                 attr.Underline.ToString(),
                 run.IsUnderline.ToString()
             ));
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "is bold",
                 (attr.FontWeight >= 700).ToString(),
                 run.IsBold.ToString()
             ));
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "font name",
                 attr.FontFace,
                 run.FontFamily
             ));
 
             testResults.Add(new(
+                cell.Cell.Object.Name,
                 "alignment",
                 attr.Alignment.ToNpoiHorizontalAlignment().ToString().ToLower(),
                 paragraph.TextAlign.ToString().ToLower()

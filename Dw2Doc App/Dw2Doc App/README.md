@@ -45,7 +45,7 @@ If the selected location points to an already existing file you will be prompted
 
 #### Deploy along with your PB project
 
-All the code for the conversion is contained inside the *dw2doc.pbl* library with dependencies on *csharpextensions.pbl* and *common.pbl*. Make sure to include all three of them if you plan on using it in your projects. The main entry point for the conversion is *n_cst_dw2excelconverter.of_convert* function.
+All the code for the conversion is contained inside the *dw2doc.pbl* library. Make sure to also copy the folder *bin.dw2doc/* to your project's directory. This folder contains the DLLs for the .NET objects. The main entry point for the conversion is `n_cst_dw2excelconverter.of_convert` function.
 
 ### Algorithm
 
@@ -134,3 +134,7 @@ Currently DataWindows can only be exported to Word documents via templates that 
 ## Feedback
 
 If you run into any unexpected errors that prevent this demo from running, or would like to submit a suggestion for a feature you would like to see added to the demo, submit a ticket on our [Support Portal](https://www.appeon.com/standardsupport/) so that we can follow up on it.
+
+# Credits
+
+[Chemistry icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/chemistry)

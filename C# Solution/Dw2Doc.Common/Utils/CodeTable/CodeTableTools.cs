@@ -43,13 +43,13 @@ public class CodeTableTools
         int i = 0;
         foreach (var (data, display) in codetable)
         {
-            if (left)
+            if (!left)
             {
                 sb.Append($"{GetButton(codetable, value, display)} ");
             }
             sb.Append($"{display}");
 
-            if (!left)
+            if (left)
             {
                 sb.Append($" {GetButton(codetable, value, display)}");
             }

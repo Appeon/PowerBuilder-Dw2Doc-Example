@@ -18,7 +18,9 @@ public class PictureTester : AbstractAttributeTester<DwPictureAttributes>
     {
         var testResults = TestFloatingBase(attr, cell);
 
-        testResults.Add(new("output shape",
+        testResults.Add(new(
+            cell.Cell.Object.Name,
+            "output shape",
             NonNullString,
             cell.OutputShape is null ? NullString : NonNullString));
 
@@ -27,11 +29,15 @@ public class PictureTester : AbstractAttributeTester<DwPictureAttributes>
         {
             var picture = cell.OutputShape as XSSFPicture;
 
-            testResults.Add(new("shape is picture",
+            testResults.Add(new(
+                cell.Cell.Object.Name,
+                "shape is picture",
                 bool.TrueString,
                 (picture is not null).ToString()));
 
-            testResults.Add(new("picture file exists",
+            testResults.Add(new(
+                cell.Cell.Object.Name,
+                "picture file exists",
                 bool.TrueString,
                 (File.Exists(attr.FileName) is bool fileExists && fileExists).ToString()));
 
@@ -49,7 +55,9 @@ public class PictureTester : AbstractAttributeTester<DwPictureAttributes>
 
             using var sha1 = System.Security.Cryptography.SHA512.Create();
 
-            testResults.Add(new("picture hashes",
+            testResults.Add(new(
+                cell.Cell.Object.Name,
+                "picture hashes",
                 Convert.ToHexString(sha1.ComputeHash(buffer, 0, buffer.Length)),
                 Convert.ToHexString(sha1.ComputeHash(picture.PictureData.Data, 0, picture.PictureData.Data.Length))));
 
